@@ -1,0 +1,23 @@
+services:
+  tweet_stream:
+    build: .
+    restart: always
+    ports:
+      - "${HOST_PORT}:${WEBSOCKET_PORT}"
+    environment:
+      - WEBSOCKET_PORT=${WEBSOCKET_PORT}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
+    depends_on:
+      - mongo
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+    volumes:
+      - ./data:/data/db
