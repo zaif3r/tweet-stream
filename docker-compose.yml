@@ -3,7 +3,7 @@ services:
     build: .
     restart: always
     ports:
-      - "${HOST_PORT}:${WEBSOCKET_PORT}"
+      - "${WEBSOCKET_PORT}:${WEBSOCKET_PORT}"
     environment:
       - WEBSOCKET_PORT=${WEBSOCKET_PORT}
       - MONGODB_USERNAME=${MONGODB_USERNAME}
